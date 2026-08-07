@@ -56,10 +56,15 @@ class Patient {
     return `${this._fullName}, ${this._age} лет, ${this._diagnosis}(${this._isEmergency ? "экстренный" : "плановый"})`;
   }
   delete() {
+    const index = patients.indexOf(this);
+    if(index !== -1) {
+      patients.splice(index, 1);
+  }
+    setToLS();
+    renderTable();
     console.log(`Пациент ${this._fullName} удалён`);
   }
 }
-
 class holterPatient extends Patient {
   constructor(
     fullName,
@@ -223,9 +228,6 @@ function renderTable() {
     
     deleteBtn.addEventListener("click", () => {
       patient.delete();
-      patients.splice(index, 1);
-      setToLS();
-      renderTable();
     });
   });
 }
